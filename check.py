@@ -1,8 +1,10 @@
 from __future__ import print_function
 
 # Tweaking parameters
-known_foss = ['Standard PIL License']
-known_non_foss = []
+LICENSES = {
+    'known_foss': ['Standard PIL License'],
+    'known_non_foss': [],
+}
 
 
 # Code
@@ -67,12 +69,12 @@ def in_license_list(needle, haystack):
 
 def check_license_code(liccode):
     print('\t\t\tLicense header: %s' % liccode)
-    found = in_license_list(liccode, known_non_foss)
+    found = in_license_list(liccode, LICENSES['known_non_foss'])
     if found:
         print('\t\t\tNON-FOSS license: %s' % found)
         return False
 
-    found = in_license_list(liccode, known_foss)
+    found = in_license_list(liccode, LICENSES['known_foss'])
     if found:
         print('\t\t\tFOSS license: %s' % found)
         return True
