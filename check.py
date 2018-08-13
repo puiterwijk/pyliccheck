@@ -1,9 +1,15 @@
 from __future__ import print_function
 
-# Tweaking parameters
+# Tweaking
+# Licenses that are known (non) FOSS that don't have valid classifiers
 LICENSES = {
-    'known_foss': ['Standard PIL License'],
-    'known_non_foss': [],
+    'foss': ['Standard PIL License'],
+    'non_foss': [],
+}
+# Projects which don't have discoverable license info but are good or bad
+PROJECTS = {
+    'good': [],
+    'bad': [],
 }
 
 
@@ -22,6 +28,14 @@ def main():
 
     for pkgname in env:
         print('Checking %s' % pkgname)
+        if pkgname in PROJECTS['bad']:
+            print('\tMarked as BAD. FAIL')
+            failed.append(pkgname)
+            continue
+        elif pkgname in PROJECTS['good']:
+            print('\tMarked as GOOD. PASS')
+            continue
+
         for pkg in env[pkgname]:
             had_conclusive_result = False
             print('\tChecking version %s' % pkg.version)
@@ -69,12 +83,12 @@ def in_license_list(needle, haystack):
 
 def check_license_code(liccode):
     print('\t\t\tLicense header: %s' % liccode)
-    found = in_license_list(liccode, LICENSES['known_non_foss'])
+    found = in_license_list(liccode, LICENSES['non_foss'])
     if found:
         print('\t\t\tNON-FOSS license: %s' % found)
         return False
 
-    found = in_license_list(liccode, LICENSES['known_foss'])
+    found = in_license_list(liccode, LICENSES['foss'])
     if found:
         print('\t\t\tFOSS license: %s' % found)
         return True
