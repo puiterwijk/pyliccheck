@@ -129,7 +129,7 @@ def check_license_from_metadata(pkg):
             elif lic == 'Public Domain':
                 print('\t\t\tPublic Domain found')
                 return True
-            elif lic in LICENSES['not_foss']:
+            elif lic in LICENSES['non_foss']:
                 print('\t\t\tKnown NON-FOSS license classified: %s' % lic)
                 return False
             elif lic in LICENSES['foss']:
