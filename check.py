@@ -27,11 +27,11 @@ def main():
                 print('\t\tRunning check: %s...' % check.__name__)
                 res = check(pkg)
                 if res is True:
-                    print('\t\t\tPASS')
+                    print('\t\tPASS')
                     had_conclusive_result = True
                     break
                 elif res is False:
-                    print('\t\t\tFAIL')
+                    print('\t\tFAIL')
                     had_conclusive_result = True
                     failed.append(pkg)
                     break
