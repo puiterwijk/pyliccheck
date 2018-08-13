@@ -3,7 +3,9 @@ from __future__ import print_function
 # Tweaking
 # Licenses that are known (non) FOSS that don't have valid classifiers
 LICENSES = {
-    'foss': ['Standard PIL License'],
+    'foss': ['Standard PIL License',
+             'Repoze Public License',
+             'BSD-derived (http://www.repoze.org/LICENSE.txt)'],
     'non_foss': [],
 }
 # Projects which don't have discoverable license info but are good or bad
@@ -126,6 +128,12 @@ def check_license_from_metadata(pkg):
                 return True
             elif lic == 'Public Domain':
                 print('\t\t\tPublic Domain found')
+                return True
+            elif lic in LICENSES['not_foss']:
+                print('\t\t\tKnown NON-FOSS license classified: %s' % lic)
+                return False
+            elif lic in LICENSES['foss']:
+                print('\t\t\tKnown FOSS license classified: %s' % lic)
                 return True
             else:
                 print('\t\t\tNon-OSI Approved license classified: %s' % lic)
